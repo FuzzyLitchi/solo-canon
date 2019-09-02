@@ -1,8 +1,11 @@
 import processing.core.PApplet;
 import processing.core.PVector;
 
+import java.util.ArrayList;
+
 public class Main extends PApplet{
-    Projectile projectile;
+    ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+    Cannon cannon;
 
     public static void main(String[] args) {
         PApplet.main("Main");
@@ -13,24 +16,32 @@ public class Main extends PApplet{
     }
 
     public void setup(){
-        this.projectile = new Projectile(
+        this.cannon = new Cannon(
             this,
-            new PVector(0, height),
-            new PVector(200, -200),
-            20,
-            5
+            new PVector(0,0)
         );
     }
 
     public void draw(){
         // Update game objects
-        this.projectile.update();
+        for (int i = projectiles.size(); i-- > 0; ) {
+            if (projectiles.get(i).update()) {
+                projectiles.remove(i);
+            }
+        }
+        cannon.update();
 
         // Clear screen
         background(200);
 
         // Draw game objects
-        this.projectile.draw();
+        for (Projectile projectile: projectiles) {
+            projectile.draw();
+        }
+        cannon.draw();
     }
 
+    public void mouseClicked() {
+        cannon.shoot(this.projectiles);
+    }
 }
