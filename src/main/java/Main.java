@@ -1,21 +1,34 @@
 import processing.core.PApplet;
+import processing.core.PVector;
 
 public class Main extends PApplet{
+    Projectile projectile;
 
     public static void main(String[] args) {
         PApplet.main("Main");
     }
 
     public void settings(){
-        size(300,300);
+        size(800,600);
     }
 
     public void setup(){
-        fill(120,50,240);
+        this.projectile = new Projectile(
+            this,
+            new PVector(0, height),
+            new PVector(200, -200)
+        );
     }
 
     public void draw(){
-        ellipse(width/2,height/2,second(),second());
+        // Update game objects
+        this.projectile.update();
+
+        // Clear screen
+        background(200);
+
+        // Draw game objects
+        this.projectile.draw();
     }
 
 }
