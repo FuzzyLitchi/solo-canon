@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PVector;
 
 public class Projectile {
@@ -7,10 +8,15 @@ public class Projectile {
     PVector velocity;
     static PVector gravity = new PVector(0, 150);
 
-    Projectile(PApplet parent, PVector position, PVector velocity) {
+    float rotation;
+    float rotationSpeed;
+
+    Projectile(PApplet parent, PVector position, PVector velocity, float rotation, float rotationSpeed) {
         this.parent = parent;
         this.position = position;
         this.velocity = velocity;
+        this.rotation = rotation;
+        this.rotationSpeed = rotationSpeed;
     }
 
     void update() {
@@ -21,10 +27,19 @@ public class Projectile {
         // We add the velocity to the position
         this.position.add(this.velocity.copy().mult(dt));
 
+        // Acceleration to the position
         this.velocity.add(gravity.copy().mult(dt));
+
+        // Rotation speed to rotation
+        this.rotation += rotationSpeed * dt;
     }
 
     void draw() {
-        parent.ellipse(this.position.x, this.position.y, 20, 20);
+        parent.rectMode(PConstants.CENTER);
+        parent.pushMatrix();
+        parent.translate(this.position.x, this.position.y);
+        parent.rotate(rotation);
+        parent.rect(0, 0, 30, 30);
+        parent.popMatrix();
     }
 }

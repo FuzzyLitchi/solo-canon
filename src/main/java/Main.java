@@ -16,7 +16,9 @@ public class Main extends PApplet{
         this.projectile = new Projectile(
             this,
             new PVector(0, height),
-            new PVector(200, -200)
+            new PVector(200, -200),
+            20,
+            5
         );
     }
 
