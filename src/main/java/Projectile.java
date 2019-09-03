@@ -6,7 +6,7 @@ public class Projectile {
     PApplet parent;
     PVector position;
     PVector velocity;
-    static PVector gravity = new PVector(0, 250);
+    static PVector gravity = new PVector(0, 300);
     // percent of velocity regained after one second;
     static float friction = 0.80f;
 
