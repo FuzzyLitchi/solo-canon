@@ -17,8 +17,8 @@ public class Cannon {
         this.position = position;
     }
 
-    void update() {
-        position.set(parent.mouseX, parent.mouseY);
+    void update(Camera camera) {
+        position = camera.getWorldMousePosition();
 
         rotation += 0.03f;
     }

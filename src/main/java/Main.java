@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Main extends PApplet{
     ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
     Cannon cannon;
+    Camera camera;
 
     public static void main(String[] args) {
         PApplet.main("Main");
@@ -16,6 +17,8 @@ public class Main extends PApplet{
     }
 
     public void setup(){
+        this.camera = new Camera(this, new PVector(0, 0));
+
         this.cannon = new Cannon(
             this,
             new PVector(0,0)
@@ -29,8 +32,10 @@ public class Main extends PApplet{
                 projectiles.remove(i);
             }
         }
-        cannon.update();
+        cannon.update(camera);
 
+        // Use camera
+        camera.set();
         // Clear screen
         background(200);
 
@@ -39,6 +44,8 @@ public class Main extends PApplet{
             projectile.draw();
         }
         cannon.draw();
+
+        camera.unset();
     }
 
     public void mouseClicked() {
