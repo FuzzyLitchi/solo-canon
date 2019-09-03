@@ -7,6 +7,7 @@ public class Main extends PApplet{
     ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
     Cannon cannon;
     Camera camera;
+    Tile tile;
 
     public static void main(String[] args) {
         PApplet.main("Main");
@@ -17,12 +18,16 @@ public class Main extends PApplet{
     }
 
     public void setup(){
+        // We disable smoothing for pixel art
+        noSmooth();
         this.camera = new Camera(this, new PVector(0, 0));
 
         this.cannon = new Cannon(
             this,
             new PVector(0,0)
         );
+
+        this.tile = new Tile(this, new PVector(50, 100), loadImage("tile.png"));
     }
 
     public void draw(){
@@ -33,11 +38,13 @@ public class Main extends PApplet{
             }
         }
         cannon.update(camera);
+        cannon.shoot(projectiles);
 
         // Use camera
         camera.set();
         // Clear screen
         background(200);
+        tile.draw();
 
         // Draw game objects
         for (Projectile projectile: projectiles) {
@@ -49,6 +56,6 @@ public class Main extends PApplet{
     }
 
     public void mouseClicked() {
-        cannon.shoot(this.projectiles);
+        //cannon.shoot(this.projectiles);
     }
 }
